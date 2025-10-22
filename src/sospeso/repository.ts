@@ -65,7 +65,7 @@ export interface SospesoRepositoryI {
   ): Promise<void>;
 }
 
-export const SOSPESO_PER_PAGE = 10;
+export const SOSPESO_PER_PAGE = 30;
 
 export const createFakeSospesoRepository = (
   initState: Record<string, Sospeso> = {},
