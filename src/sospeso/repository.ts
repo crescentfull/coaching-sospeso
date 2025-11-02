@@ -44,6 +44,8 @@ type SospesoApplicationListItemDto = {
   applicant: {
     id: string;
     nickname: string;
+    email?: string;
+    phone?: string;
   };
   content: string;
 };
@@ -145,6 +147,8 @@ export const createFakeSospesoRepository = (
             applicant: {
               id: TEST_USER.id,
               nickname: TEST_USER.nickname,
+              email: TEST_USER.email,
+              phone: TEST_USER.phone,
             },
           };
         });

@@ -8,6 +8,7 @@ import { Faker, ko } from "@faker-js/faker";
 import { TEST_ADMIN_USER_ID, TEST_USER_ID } from "@/auth/fixtures.ts";
 import invariant from "@/invariant.ts";
 import { TEST_NOW } from "@/actions/fixtures.ts";
+import { email } from "zod";
 
 const generateId = generateNanoId;
 export const TEST_SOSPESO_ID = "DaLNnQs8nfVgs0";
@@ -64,6 +65,8 @@ export const TEST_APPLIED_APPLICATION = {
   applicant: {
     id: generateId(),
     nickname: "김토끼",
+    email: "rabbit@test.com",
+    phone: "010-1234-5678",
   },
   content:
     "저는 김씨가문 김유신의 52대손으로 태어나 어쩌구... 올해 퀴어 문화 축제에도 다녀왔으며, 모든 성소수자들을 지지합니다.",
@@ -78,6 +81,8 @@ export const TEST_APPROVED_APPLICATION = {
   applicant: {
     id: generateId(),
     nickname: "해적 토끼",
+    email: "pirate@rabbit.com",
+    phone: "010-9876-5432",
   },
   content: "제 왼쪽 눈을 보십시오. 이것이야 말로 증거가 아니겠습니까?ㄷ",
 } as const;
@@ -91,6 +96,8 @@ export const TEST_APPLICATION_LIST: {
   applicant: {
     id: string;
     nickname: string;
+    email?: string;
+    phone?: string;
   };
   content: string;
 }[] = [
@@ -104,6 +111,8 @@ export const TEST_APPLICATION_LIST: {
     applicant: {
       id: generateId(),
       nickname: "혐오자",
+      email: "",
+      phone: "010-0000-0000",
     },
     content: "저는 소스페소에 이상한 요청을 보낸 나쁜 사람입니다",
   },

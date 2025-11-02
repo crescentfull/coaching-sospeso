@@ -14,6 +14,8 @@ export type SospesoApplicationDto = {
   applicant: {
     id: string;
     nickname: string;
+    email?: string;
+    phone?: string;
   };
   content: string;
 };
@@ -55,7 +57,13 @@ export const SospesoApplicationDashboard = ({
             <tr key={application.id}>
               <td>{application.to}</td>
               <td>{application.appliedAt.toLocaleDateString("ko-kr")}</td>
-              <td>{application.applicant.nickname}</td>
+              <td>
+                <div className="flex flex-col">
+                  <div>{application.applicant.nickname}</div>
+                  <div>{application.applicant.email}</div>
+                  <div>{application.applicant.phone}</div>
+                </div>
+              </td>
               <td className="w-128">{application.content}</td>
               <td className="w-32">
                 <div className="dropdown dropdown-end">
@@ -73,58 +81,58 @@ export const SospesoApplicationDashboard = ({
                   </div>
                   {(application.status === "applied" ||
                     application.status === "approved") && (
-                    <ul
-                      tabIndex={0}
-                      className="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow"
-                    >
-                      {application.status === "applied" && (
+                      <ul
+                        tabIndex={0}
+                        className="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow"
+                      >
+                        {application.status === "applied" && (
+                          <li>
+                            <button
+                              type="button"
+                              onClick={(event) => {
+                                sospesoApproveEventBus.dispatch(
+                                  event.currentTarget,
+                                  {
+                                    sospesoId: application.sospesoId,
+                                    applicationId: application.id,
+                                  },
+                                );
+                              }}
+                            >
+                              승인하기
+                            </button>
+                          </li>
+                        )}
                         <li>
                           <button
-                            type="button"
                             onClick={(event) => {
-                              sospesoApproveEventBus.dispatch(
+                              sospesoRejectEventBus.dispatch(
                                 event.currentTarget,
                                 {
                                   sospesoId: application.sospesoId,
                                   applicationId: application.id,
                                 },
-                              );
+                              )
                             }}
                           >
-                            승인하기
+                            거절하기
                           </button>
                         </li>
-                      )}
-                      <li>
-                        <button
-                          onClick={(event) => {
-                            sospesoRejectEventBus.dispatch(
-                              event.currentTarget,
-                              {
+                        {application.status === "approved" && (
+                          <li>
+                            <Link
+                              routeKey="어드민-소스페소-사용"
+                              params={{
                                 sospesoId: application.sospesoId,
-                                applicationId: application.id,
-                              },
-                            )
-                          }}
-                        >
-                          거절하기
-                        </button>
-                      </li>
-                      {application.status === "approved" && (
-                        <li>
-                          <Link
-                            routeKey="어드민-소스페소-사용"
-                            params={{
-                              sospesoId: application.sospesoId,
-                              consumerId: application.applicant.id,
-                            }}
-                          >
-                            사용하기
-                          </Link>
-                        </li>
-                      )}
-                    </ul>
-                  )}
+                                consumerId: application.applicant.id,
+                              }}
+                            >
+                              사용하기
+                            </Link>
+                          </li>
+                        )}
+                      </ul>
+                    )}
                 </div>
               </td>
             </tr>

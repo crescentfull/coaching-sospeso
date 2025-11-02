@@ -185,6 +185,8 @@ export function createDrizzleSospesoRepository(
             columns: {
               id: true,
               nickname: true,
+              email: true,
+              phone: true,
             },
           },
           sospeso: {
@@ -208,6 +210,8 @@ export function createDrizzleSospesoRepository(
           applicant: {
             id: applicant.id,
             nickname: applicant.nickname,
+            email: applicant.email ?? undefined,
+            phone: applicant.phone ?? undefined,
           },
         };
       });

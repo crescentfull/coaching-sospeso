@@ -29,6 +29,8 @@ export const NotZero: Story = {
             applicant: {
                 id: application.applicant.id,
                 nickname: application.applicant.nickname,
+                email: application.applicant.email,
+                phone: application.applicant.phone,
             },
             content: application.content,
         })),
