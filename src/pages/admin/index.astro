@@ -38,13 +38,21 @@ if (!applicationList) {
     sospesoApproveEventBus,
     sospesoRejectEventBus,
   } from "@/components/SospesoApplicationDashboard";
+import { href } from "@/routing/href";
   import { actions } from "astro:actions";
+import { navigate } from "astro:transitions/client";
 
   sospesoApproveEventBus.on(window.document.body, (command) => {
-    actions.approveSospesoApplication(command).then(() => {});
+    actions.approveSospesoApplication(command)
+    .then(() => {
+      navigate(href("어드민", undefined));
+    });
   });
 
   sospesoRejectEventBus.on(window.document.body, (command) => {
-    actions.rejectSospesoApplication(command).then(() => {});
+    actions.rejectSospesoApplication(command)
+    .then(() => {
+      navigate(href("어드민", undefined));
+    });
   });
 </script>
