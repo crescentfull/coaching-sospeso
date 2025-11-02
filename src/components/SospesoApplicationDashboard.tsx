@@ -42,7 +42,7 @@ export const SospesoApplicationDashboard = ({
       <h1 className="text-page-title">소스페소 신청 현황</h1>
       <table className="table">
         <thead>
-          <tr className="bg-primary text-primary-content">
+          <tr>
             <th>수혜자 조건</th>
             <th>신청한 날짜</th>
             <th>신청한 사람</th>
@@ -54,10 +54,10 @@ export const SospesoApplicationDashboard = ({
           {applicationList.map((application) => (
             <tr key={application.id}>
               <td>{application.to}</td>
-              <td>{application.appliedAt.toDateString()}</td>
+              <td>{application.appliedAt.toLocaleDateString("ko-kr")}</td>
               <td>{application.applicant.nickname}</td>
-              <td>{application.content}</td>
-              <td>
+              <td className="w-128">{application.content}</td>
+              <td className="w-32">
                 <div className="dropdown dropdown-end">
                   <div
                     tabIndex={0}
@@ -104,7 +104,7 @@ export const SospesoApplicationDashboard = ({
                                 sospesoId: application.sospesoId,
                                 applicationId: application.id,
                               },
-                            );
+                            )
                           }}
                         >
                           거절하기
